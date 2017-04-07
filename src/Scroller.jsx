@@ -212,7 +212,7 @@ export default class Scroller extends Component {
         bounceEasing: utils.ease.circular,
         bounceTime: 600,
         contentOffset: {x: 0, y: 0},
-        deceleration: 0.0006,
+        deceleration: 0.0024,
         disabled: false,
         directionLockThreshold: 0,
         freeScroll: false,

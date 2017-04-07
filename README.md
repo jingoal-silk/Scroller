@@ -16,14 +16,14 @@
 ## 安装
 
 ```bash
-$ npm install jingoal-silk --save
+$ npm install silk-scroller --save
 ```
 
 ## 使用
 > Scroller
 
 ```jsx
-import {Scroller} from 'jingoal-silk/lib/scroller';
+import Scroller from 'silk-scroller';
 
 class Example extends React.Component {
 
@@ -112,7 +112,7 @@ ReactDOM.render(
 > Sticky粘性布局
 
 ```jsx
-import {Scroller} from 'jingoal-silk/lib/scroller';
+import Scroller,{Sticky} from 'silk-scroller';
 
 class Example extends React.Component {
 
@@ -285,7 +285,7 @@ ReactDOM.render(
 | bounceEasing   |   自定义弹性动画   | Object |   | 见`Tip1`  |
 | bounceTime        | 缓动时间       | Number | |  600  |
 | contentOffset        | 列表的初始偏移量 | Object | |   {x: 0, y: 0}  |
-| deceleration | 阻尼系数，用来控制动画的运动幅度 | Number | | 0.006 |
+| deceleration | 阻尼系数，用来控制动画的运动幅度 | Number | | 0.0024 |
 | disable  | 是否禁用Scroller组件 | Boolean | true, false | false |
 | eventPassthrough | 见`Tip2` | Boolean或String | true, false, 'horizontal', 'vertical' |
 | directionLockThreshold | 方向锁定阈值 | Number | | 5 |
