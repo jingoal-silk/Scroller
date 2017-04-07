@@ -1,0 +1,19 @@
+.list-sticky {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 15px;
+    color: #3d3d3d;
+    &-item {
+        border-top: 1px solid #efefef;
+        color: #ABADB2;
+        &:last-child {
+            border-bottom: 1px solid #efefef;
+        }
+    }
+
+    &-title {
+        text-align: center;
+        background: #2db7f5;
+        color: darkgreen;
+    }
+}

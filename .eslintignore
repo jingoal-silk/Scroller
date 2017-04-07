@@ -1,0 +1,4 @@
+build/*.js
+config/*.js
+lib/*.js
+node_modules
