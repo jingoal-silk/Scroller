@@ -1,105 +1,13 @@
 {
-    "Greeting": {
-        "content": "自由工作,今目標"
-    },
-    "Loading": {
-        "loading": "加載中...",
-        "text": "今"
-    },
-    "ScrollControl": {
-        "pullDownToRefresh": "下拉刷新",
-        "releaseToRefresh": "松開刷新",
-        "refreshSuccess": "刷新成功",
-        "refreshFailed": "刷新失敗",
-        "pullupToLoadMore": "上拉加載更多",
-        "releaseToLoadMore": "松開加載更多",
-        "loadMoreSuccess": "加載成功",
-        "loadMoreFailed": "加載失敗",
-        "noMoreData": "沒有更多數據了",
-        "pushNoticy": "有新的變更，請下拉刷新",
-        "loading": "加載中..."
-    },
-    "DatePicker": {
-        "yearSuffix": "年",
-        "monthSuffix": "月",
-        "daySuffix": "日",
-        "hourSuffix": "時",
-        "minuteSuffix": "分",
-        "secondSuffix": "秒"
-    },
-    "MemberPicker": {
-        "search": "搜索",
-        "cancel": "取消",
-        "company": "企",
-        "friend": "友",
-        "user": "人員",
-        "dept": "部門",
-        "jobs": "職務",
-        "group": "組織架構",
-        "customGroup": "自定義組",
-        "partner": "合作夥伴",
-        "friendcompany": "合作夥伴",
-        "chooseMember": "選人員",
-        "chooseJob": "選職務",
-        "chooseDepartment": "選部門",
-        "searchTip": "請輸入姓名、字母、手機號",
-        "emptySearchTip": "抱歉，暫無匹配結果",
-        "freeze": "[凍結]",
-        "usersTip": "暫無人員",
-        "deptsTip": "暫無部門",
-        "customGroupTip": "暫無自定義組",
-        "partnerTip": "暫無合作夥伴",
-        "unExpectedTip": "獲取數據失敗",
-        "unExpectedHandleText": "點擊空白處刷新"
-    },
-    "alertify": {
-        "ok": "確定",
-        "cancel": "取消",
-        "enterFont": "輸入文字"
-    },
-    "Upload": {
-        "ok": "確定",
-        "cancel": "取消",
-        "localFile": "本地文件",
-        "netDisk": "企業網盤",
-        "albumFile": "相冊",
-        "cameraFile": "拍照",
-        "pause": "已暫停",
-        "retry": "上傳失敗，點擊重試",
-        "lackSpack": "企業空間不足",
-        "overRun": "文件大小超過限制",
-        "deleteConfirm": "確定要刪除此附件？",
-        "maxLimit": "附件個數達到上限",
-        "pauseFaild": "暫停附件失敗",
-        "resumeFaild": "續傳附件失敗",
-        "deleteFaild": "刪除附件失敗",
-        "operateError": "操作遇到問題",
-        "noNetwork": "網絡不可用"
-    },
-    "download": {
-        "processOld": "下載中，網盤查看",
-        "typeError": "檔案類型不可預覽",
-        "pause": "暫停下載",
-        "done": "已下載到: 我-企業檔案",
-        "normal": "正常",
-        "error": "文件下載异常",
-        "fail": "文件下載失敗",
-        "networkError": "暫無網絡，請稍後再試",
-        "preview": "預覽"
-    },
-    "search": {
-        "placeHolder": "蒐索",
-        "cancel": "取消"
-    },
-    "ActionSheet": {
-        "cancel": "取消"
-    },
-    "upgrade": {
-        "cancel": "取消",
-        "download": "下載",
-        "defaultUpgradeContent": "您的客戶端版本過低，請升級到最新版本"
-    },
-    "error": {
-        "10005": "重複請求"
-    }
+    "pullDownToRefresh": "下拉刷新",
+    "releaseToRefresh": "松開刷新",
+    "refreshSuccess": "刷新成功",
+    "refreshFailed": "刷新失敗",
+    "pullupToLoadMore": "上拉加載更多",
+    "releaseToLoadMore": "松開加載更多",
+    "loadMoreSuccess": "加載成功",
+    "loadMoreFailed": "加載失敗",
+    "noMoreData": "沒有更多數據了",
+    "pushNoticy": "有新的變更，請下拉刷新",
+    "loading": "加載中..."
 }

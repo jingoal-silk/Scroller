@@ -1,102 +1,14 @@
 {
-    "Greeting": {
-        "content": "Free work, this goal"
-    },
-    "Loading": {
-        "loading": "Loading",
-        "title": "now"
-    },
-    "ScrollControl": {
-        "pullDownToRefresh": "Pull down to refresh",
-        "releaseToRefresh": "Refresh release",
-        "refreshSuccess": "Refresh success",
-        "refreshFailed": "Refresh failed",
-        "pullupToLoadMore": "Upload more on LAC",
-        "releaseToLoadMore": "Loosen Load more",
-        "loadMoreSuccess": "Loading success",
-        "loadMoreFailed": "Failed to load",
-        "noMoreData": "No more of the data",
-        "pushNoticy": "New changes, please refresh the drop-down",
-        "loading": "Loading"
-    },
-    "DatePicker": {
-        "yearSuffix": "year",
-        "monthSuffix": "month",
-        "daySuffix": "day",
-        "hourSuffix": "Time",
-        "minuteSuffix": "Minute",
-        "secondSuffix": "second"
-    },
-    "MemberPicker": {
-        "search": "search for",
-        "cancel": "cancel",
-        "company": "Enterprises",
-        "friend": "Friendly",
-        "user": "User",
-        "dept": "Dept",
-        "jobs": "Job",
-        "group": "Department",
-        "customGroup": "CustomGroup",
-        "partner": "Partner",
-        "friendcompany": "Partner",
-        "chooseMember": "Member",
-        "chooseJob": "Job",
-        "chooseDepartment": "Department",
-        "searchTip": "Enter Username/Character/PhoneNumber",
-        "emptySearchTip": "Sorry，No matching results",
-        "freeze": "freezed",
-        "usersTip": "No personnel",
-        "deptsTip": "No departments",
-        "customGroupTip": "No custom group",
-        "partnerTip": "No partner",
-        "unExpectedTip": "Get data failed",
-        "unExpectedHandleText": "Click on the blank to refresh"
-    },
-    "alertify": {
-        "ok": "determine",
-        "cancel": "cancel",
-        "enterFont": "Enter text"
-    },
-    "Upload": {
-        "ok": "ok",
-        "cancel": "cancel",
-        "localFile": "local file",
-        "netDisk": "Enterprise network disk",
-        "albumFile": "Album",
-        "cameraFile": "Photograph",
-        "pause": "Paused",
-        "retry": "Upload failed，click retry",
-        "lackSpack": "Enterprise space is insufficient",
-        "overRun": "The file size exceeds the limit",
-        "deleteConfirm": "Are you sure you want to delete this attachment?",
-        "maxLimit": "The maximum number of attachments has been reached",
-        "pauseFaild": "Paused attachment failed",
-        "resumeFaild": "Failed to attach attachment",
-        "deleteFaild": "Failed to delete attachments",
-        "operateError": "Operation encountered a problem",
-        "noNetwork": "The network is unavailable"
-    },
-    "download": {
-        "processOld": "download, SkyDrive view",
-        "typeError": "file type cannot be previewed",
-        "pause": "pause",
-        "done": "done: I - enterprise file",
-        "normal": "normal",
-        "error": "error",
-        "fail": "fail",
-        "networkError": "network error",
-        "preview": "preview"
-    },
-    "search": {
-        "placeHolder": "Search",
-        "cancel": "Cancel"
-    },
-    "Upgrade": {
-        "Cancel": "cancel",
-        "Download": "download",
-        "DefaultUpgradeContent": "Your client version is too low, please upgrade to the latest version"
-    },
-    "ActionSheet": {
-        "cancel": "cancel"
-    }
+    "pullDownToRefresh": "Pull down to refresh",
+    "releaseToRefresh": "Release",
+    "refreshSuccess": "Successful refresh",
+    "refreshFailed": "Failed to refresh",
+    "pullupToLoadMore": "Pull up to load more",
+    "releaseToLoadMore": "Release",
+    "loadMoreSuccess": "Successful loading",
+    "loadMoreFailed": "Failed to load",
+    "noMoreData": "No more content",
+    "pushNoticy": "New updates, pull down to refresh",
+    "loading": "Loading…"
 }
+

@@ -248,7 +248,7 @@ export default class Scroller extends Component {
         // 缓存个滑块的DOM节点
         this.loadTipElCache = this.getLoadTipElCache();
         // 初始化语言包
-        this.lang = getMessage('ScrollControl', props.lang);
+        this.lang = getMessage(props.lang);
     }
 
     getChildContext() {

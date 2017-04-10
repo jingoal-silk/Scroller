@@ -7,6 +7,7 @@ const gulp = require('gulp');
 const clean = require('gulp-clean');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
+const replace = require('gulp-replace');
 
 gulp.task('clean', () =>
     gulp.src(['./lib'], {read: false})
@@ -20,6 +21,7 @@ gulp.task('babel', ['clean'], () =>
             presets: ['react', 'es2015', 'stage-0'],
             plugins: ['transform-runtime', 'transform-decorators-legacy']
         }))
+        .pipe(replace(/.scss/g, '.css'))
         .pipe(gulp.dest('./lib'))
 )
 
@@ -28,6 +30,7 @@ gulp.task('sass', () => {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./lib'))
 });
+
 
 gulp.task('move', ['clean', 'sass'], () =>
     gulp.src([
