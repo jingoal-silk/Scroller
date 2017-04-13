@@ -4,6 +4,10 @@ React版iScroll并且集成下拉刷新，上拉加载更多，Sticky等功能 E
 
 *正式版,已在大型商业项目中使用,有问题提issue,永久更新.*
 
+[demo](https://jingoal-silk.github.io/Scroller/dist/index.html)
+
+[sticky](https://jingoal-silk.github.io/Scroller/dist/Sticky.html)
+
 > 滚动原理:
 该组件是通过提供一个容器（container）和一个滑块 (scroller) 实现的。容器必须有一个确定的高度才能正常工作，滑块通过两种方案实现滚动
  - 1、CSS3动画实现方案 transition + transform
