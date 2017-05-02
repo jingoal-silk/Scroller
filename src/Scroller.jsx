@@ -56,20 +56,9 @@ export default class Scroller extends Component {
          * */
         bounceTime: PropTypes.number,
         /**
-         * 内容偏移量
-         * */
-        contentOffset: PropTypes.shape({
-            x: PropTypes.number,
-            y: PropTypes.number
-        }),
-        /**
          * 阻尼系数
          * */
         deceleration: PropTypes.number,
-        /**
-         * 是否禁用
-         * */
-        disabled: PropTypes.bool,
         /**
          * 有时想要保留原生的垂直滚动，但是想要添加一个水平滚动的IScroll(例如：carousel), 可以把这个值设置为true，这样就可以响应
          * 水平方向的`swiper`，垂直滚动会滚动整个页面，同时也可以设置为`horizontal`或者`vertical`
@@ -211,9 +200,7 @@ export default class Scroller extends Component {
         bounce: true,
         bounceEasing: utils.ease.circular,
         bounceTime: 600,
-        contentOffset: {x: 0, y: 0},
         deceleration: 0.0024,
-        disabled: false,
         directionLockThreshold: 0,
         freeScroll: false,
         momentum: true,
@@ -281,7 +268,6 @@ export default class Scroller extends Component {
         this.refreshLoadMore();
 
         this.resetPosition();
-        this.scrollTo(this.props.contentOffset.x, this.props.contentOffset.y);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -289,12 +275,6 @@ export default class Scroller extends Component {
     }
 
     componentDidUpdate(prevProp, prevState) {
-        if (prevProp.contentOffset.x !== this.props.contentOffset.x ||
-            prevProp.contentOffset.y !== this.props.contentOffset.y
-        ) {
-            this.scrollTo(this.props.contentOffset.x, this.props.contentOffset.y);
-        }
-
         if (this.props.autoRefresh) this.refresh();
 
         this.refreshSticky();
@@ -578,6 +558,7 @@ export default class Scroller extends Component {
         } else if (!this.useTransition && this.isAnimating) {
             // 设置为false后  requestAnimationFrame不会在执行
             this.isAnimating = false;
+            utils.cancelAnimationFrame.call(window, this.rAF);
             this.execEvent('onScrollEnd');
         }
 
@@ -668,12 +649,12 @@ export default class Scroller extends Component {
         // 如果超出了边界则放慢速度
         if (newX > 0 || newX < this.maxScrollX) {
             newX = this.props.bounce ? // eslint-disable-line no-nested-ternary
-                this.x + (deltaX / 3) : newX > 0 ? 0 : this.maxScrollX;
+            this.x + (deltaX / 3) : newX > 0 ? 0 : this.maxScrollX;
         }
         // 大于0  则说明拉到下边位置了  或者已经超出了顶端
         if (newY > 0 || newY < this.maxScrollY) {
             newY = this.props.bounce ? // eslint-disable-line no-nested-ternary
-                this.y + (deltaY / 3) : newY > 0 ? 0 : this.maxScrollY;
+            this.y + (deltaY / 3) : newY > 0 ? 0 : this.maxScrollY;
         }
 
         // 设置方向 若 deltaX大于0  说明是在向下滑动  小于0 向上滑动  等于0 不动
@@ -767,12 +748,12 @@ export default class Scroller extends Component {
                 utils.momentum(this.x, this.startX, duration, this.maxScrollX,
                     this.props.bounce ? this.wrapperWidth : 0,
                     this.props.deceleration) :
-                { destination: newX, duration: 0 };
+            { destination: newX, duration: 0 };
             momentumY = this.hasVerticalScroll ?
                 utils.momentum(this.y, this.startY, duration, this.maxScrollY,
                     this.props.bounce ? this.wrapperHeight : 0,
                     this.props.deceleration) :
-                { destination: newY, duration: 0 };
+            { destination: newY, duration: 0 };
 
             newX = momentumX.destination;
             newY = momentumY.destination;
@@ -852,8 +833,8 @@ export default class Scroller extends Component {
             if (this.isIphone && ((this.scrollY && (this.pointY < boundaryThreshold ||
                 this.pointY > document.documentElement.clientHeight - boundaryThreshold)) ||
                 (this.scrollX && (this.pointX < boundaryThreshold ||
-                this.pointX > document.documentElement.clientWidth - boundaryThreshold)
-            ))) {
+                    this.pointX > document.documentElement.clientWidth - boundaryThreshold)
+                ))) {
                 const ev = document.createEvent('Event');
                 ev.initEvent('touchend', true, true);
                 document.dispatchEvent(ev);
@@ -957,7 +938,7 @@ export default class Scroller extends Component {
         if (!time && utils.isBadAndroid) {
             // 则将transitionDuration属性设置为极短
             this.scrollerStyle[durationProp] = '0.0001ms';
-            utils.requestAnimationFrame.call(window, () => {
+            self.rAF = requestAnimationFrame.call(window, () => {
                 if (this.scrollerStyle[durationProp] === '0.0001ms') {
                     this.scrollerStyle[durationProp] = '0s';
                 }
@@ -1017,6 +998,7 @@ export default class Scroller extends Component {
                     } else if (!this.useTransition && this.isAnimating) {
                         // 设置为false后  requestAnimationFrame不会在执行
                         this.isAnimating = false;
+                        utils.cancelAnimationFrame.call(window, this.rAF);
                         this.execEvent('onScrollEnd');
                     }
                     // 设置加载更多
@@ -1058,11 +1040,24 @@ export default class Scroller extends Component {
     }
 
     /**
+     * 禁用Scroller组件
+     * */
+    disable() {
+        this.disabled = true;
+    }
+
+    /**
+     * 启用Scroller组件
+     * */
+    enable() {
+        this.disabled = false;
+    }
+
+    /**
      * 加载数据
      * @param type [String] 是上拉还是下拉加载数据
      * */
     loadData(type) {
-        // pullRefreshAction, loadMoreAction
         const promise = new Promise((resolve, reject) => {
             if (type === 'refresh') {
                 this.props.pullRefreshAction(resolve, reject);
@@ -1183,6 +1178,7 @@ export default class Scroller extends Component {
             if (now >= destTime) {
                 self.isAnimating = false;
                 self.translate(destX, destY);
+                utils.cancelAnimationFrame.call(window, self.rAF);
 
                 if (!self.resetPosition(self.props.bounceTime)) {
                     self.execEvent('onScrollEnd');
@@ -1198,7 +1194,7 @@ export default class Scroller extends Component {
             self.translate(newX, newY);
 
             if (self.isAnimating) {
-                utils.requestAnimationFrame.call(window, step);
+                self.rAF = utils.requestAnimationFrame.call(window, step);
             }
 
             self.execEvent('onScroll');
@@ -1268,11 +1264,8 @@ export default class Scroller extends Component {
         this.scrollX = this.eventPassthrough === 'horizontal' ? false : props.scrollX;
         this.scrollY = this.eventPassthrough === 'vertical' ? false : props.scrollY;
 
-        // 禁用开关
-        this.disabled = this.props.disabled;
-
         this.bounceEasing = typeof bounceEasing === 'string' ?
-            utils.ease[this.props.bounceEasing] || utils.ease.circular :
+        utils.ease[this.props.bounceEasing] || utils.ease.circular :
             this.props.bounceEasing;
 
         if (this.props.onScroll) { this.useTransition = false; }
@@ -1350,7 +1343,7 @@ export default class Scroller extends Component {
         const {
             usePullRefresh,
             useLoadMore
-        } = this.props;
+        } = this.state;
 
         return (
             <div

@@ -280,6 +280,8 @@ ReactDOM.render(
 | scrollTo | 滚动到指定的位置，接受4个参数 x - 滚动到指定的x坐标 y - 滚动到指定的y坐标 time - 滚动到指定位置需要的时间 easing - 缓动动画|
 | refresh  | 刷新Scroller |
 | simulatePullRefresh | 模拟下拉刷新的方法，用于非手势触发的下拉刷新 |
+| disable | 禁用Scroller |
+| enable | 启用Scroller |
 
 `Tip`: simulatePullRefresh该函数接收一个参数`time` 用于指定滑块滚下来的时间，默认为`300ms`
 
@@ -290,9 +292,8 @@ ReactDOM.render(
 | bounce         |   是否开启弹性滚动   | Boolean | true, false  |  true |
 | bounceEasing   |   自定义弹性动画   | Object |   | 见`Tip1`  |
 | bounceTime        | 缓动时间       | Number | |  600  |
-| contentOffset        | 列表的初始偏移量 | Object | |   {x: 0, y: 0}  |
 | deceleration | 阻尼系数，用来控制动画的运动幅度 | Number | | 0.0024 |
-| disable  | 是否禁用Scroller组件 | Boolean | true, false | false |
+| disabled  | 是否禁用Scroller组件 | Boolean | true, false | false |
 | eventPassthrough | 见`Tip2` | Boolean或String | true, false, 'horizontal', 'vertical' |
 | directionLockThreshold | 方向锁定阈值 | Number | | 5 |
 | freeScroll | 是否允许组件自由滚动 | Boolean | true, false | false |

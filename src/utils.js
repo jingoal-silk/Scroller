@@ -15,6 +15,15 @@ const requestAnimationFrame = window.requestAnimationFrame ||
     window.oRequestAnimationFrame ||
     window.msRequestAnimationFrame ||
     (callback => window.setTimeout(callback, 1000 / 60));
+/**
+ * 取消动画执行
+ * */
+const cancelAnimationFrame = window.cancelAnimationFrame ||
+    window.webkitCancelAnimationFrame ||
+    window.mozCancelAnimationFrame ||
+    window.oCancelAnimationFrame ||
+    window.msCancelAnimationFrame ||
+    window.clearTimeout;
 
 /**
  * 缓存DIV元素的默认样式，为之后的兼容处理做准备
@@ -242,7 +251,8 @@ const utils = {
     preventDefaultException,
     eventType,
     ease,
-    requestAnimationFrame
+    requestAnimationFrame,
+    cancelAnimationFrame
 }
 
 export default utils;
