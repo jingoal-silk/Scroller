@@ -2630,7 +2630,6 @@ webpackJsonp([1],[
 	            this.refreshLoadMore();
 
 	            this.resetPosition();
-	            this.scrollTo(this.props.contentOffset.x, this.props.contentOffset.y);
 	        }
 	    }, {
 	        key: 'componentWillReceiveProps',
@@ -2640,10 +2639,6 @@ webpackJsonp([1],[
 	    }, {
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate(prevProp, prevState) {
-	            if (prevProp.contentOffset.x !== this.props.contentOffset.x || prevProp.contentOffset.y !== this.props.contentOffset.y) {
-	                this.scrollTo(this.props.contentOffset.x, this.props.contentOffset.y);
-	            }
-
 	            if (this.props.autoRefresh) this.refresh();
 
 	            this.refreshSticky();
@@ -2938,6 +2933,7 @@ webpackJsonp([1],[
 	            } else if (!this.useTransition && this.isAnimating) {
 	                // 设置为false后  requestAnimationFrame不会在执行
 	                this.isAnimating = false;
+	                _utils2.default.cancelAnimationFrame.call(window, this.rAF);
 	                this.execEvent('onScrollEnd');
 	            }
 
@@ -3335,7 +3331,7 @@ webpackJsonp([1],[
 	            if (!time && _utils2.default.isBadAndroid) {
 	                // 则将transitionDuration属性设置为极短
 	                this.scrollerStyle[durationProp] = '0.0001ms';
-	                _utils2.default.requestAnimationFrame.call(window, function () {
+	                self.rAF = requestAnimationFrame.call(window, function () {
 	                    if (_this2.scrollerStyle[durationProp] === '0.0001ms') {
 	                        _this2.scrollerStyle[durationProp] = '0s';
 	                    }
@@ -3392,6 +3388,7 @@ webpackJsonp([1],[
 	                        } else if (!this.useTransition && this.isAnimating) {
 	                            // 设置为false后  requestAnimationFrame不会在执行
 	                            this.isAnimating = false;
+	                            _utils2.default.cancelAnimationFrame.call(window, this.rAF);
 	                            this.execEvent('onScrollEnd');
 	                        }
 	                        // 设置加载更多
@@ -3435,6 +3432,26 @@ webpackJsonp([1],[
 	        }
 
 	        /**
+	         * 禁用Scroller组件
+	         * */
+
+	    }, {
+	        key: 'disable',
+	        value: function disable() {
+	            this.disabled = true;
+	        }
+
+	        /**
+	         * 启用Scroller组件
+	         * */
+
+	    }, {
+	        key: 'enable',
+	        value: function enable() {
+	            this.disabled = false;
+	        }
+
+	        /**
 	         * 加载数据
 	         * @param type [String] 是上拉还是下拉加载数据
 	         * */
@@ -3444,7 +3461,6 @@ webpackJsonp([1],[
 	        value: function loadData(type) {
 	            var _this4 = this;
 
-	            // pullRefreshAction, loadMoreAction
 	            var promise = new _promise2.default(function (resolve, reject) {
 	                if (type === 'refresh') {
 	                    _this4.props.pullRefreshAction(resolve, reject);
@@ -3566,6 +3582,7 @@ webpackJsonp([1],[
 	                if (now >= destTime) {
 	                    self.isAnimating = false;
 	                    self.translate(destX, destY);
+	                    _utils2.default.cancelAnimationFrame.call(window, self.rAF);
 
 	                    if (!self.resetPosition(self.props.bounceTime)) {
 	                        self.execEvent('onScrollEnd');
@@ -3581,7 +3598,7 @@ webpackJsonp([1],[
 	                self.translate(newX, newY);
 
 	                if (self.isAnimating) {
-	                    _utils2.default.requestAnimationFrame.call(window, step);
+	                    self.rAF = _utils2.default.requestAnimationFrame.call(window, step);
 	                }
 
 	                self.execEvent('onScroll');
@@ -3660,9 +3677,6 @@ webpackJsonp([1],[
 	            // 是否允许在X轴或者Y轴方向滚动
 	            this.scrollX = this.eventPassthrough === 'horizontal' ? false : props.scrollX;
 	            this.scrollY = this.eventPassthrough === 'vertical' ? false : props.scrollY;
-
-	            // 禁用开关
-	            this.disabled = this.props.disabled;
 
 	            this.bounceEasing = typeof bounceEasing === 'string' ? _utils2.default.ease[this.props.bounceEasing] || _utils2.default.ease.circular : this.props.bounceEasing;
 
@@ -3743,9 +3757,9 @@ webpackJsonp([1],[
 	        value: function render() {
 	            var _this6 = this;
 
-	            var _props = this.props,
-	                usePullRefresh = _props.usePullRefresh,
-	                useLoadMore = _props.useLoadMore;
+	            var _state = this.state,
+	                usePullRefresh = _state.usePullRefresh,
+	                useLoadMore = _state.useLoadMore;
 
 
 	            return _react2.default.createElement(
@@ -3839,20 +3853,9 @@ webpackJsonp([1],[
 	     * */
 	    bounceTime: _react.PropTypes.number,
 	    /**
-	     * 内容偏移量
-	     * */
-	    contentOffset: _react.PropTypes.shape({
-	        x: _react.PropTypes.number,
-	        y: _react.PropTypes.number
-	    }),
-	    /**
 	     * 阻尼系数
 	     * */
 	    deceleration: _react.PropTypes.number,
-	    /**
-	     * 是否禁用
-	     * */
-	    disabled: _react.PropTypes.bool,
 	    /**
 	     * 有时想要保留原生的垂直滚动，但是想要添加一个水平滚动的IScroll(例如：carousel), 可以把这个值设置为true，这样就可以响应
 	     * 水平方向的`swiper`，垂直滚动会滚动整个页面，同时也可以设置为`horizontal`或者`vertical`
@@ -3985,9 +3988,7 @@ webpackJsonp([1],[
 	    bounce: true,
 	    bounceEasing: _utils2.default.ease.circular,
 	    bounceTime: 600,
-	    contentOffset: { x: 0, y: 0 },
 	    deceleration: 0.0024,
-	    disabled: false,
 	    directionLockThreshold: 0,
 	    freeScroll: false,
 	    momentum: true,
@@ -4097,6 +4098,10 @@ webpackJsonp([1],[
 	var requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
 	    return window.setTimeout(callback, 1000 / 60);
 	};
+	/**
+	 * 取消动画执行
+	 * */
+	var cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame || window.clearTimeout;
 
 	/**
 	 * 缓存DIV元素的默认样式，为之后的兼容处理做准备
@@ -4338,7 +4343,8 @@ webpackJsonp([1],[
 	    preventDefaultException: preventDefaultException,
 	    eventType: eventType,
 	    ease: ease,
-	    requestAnimationFrame: requestAnimationFrame
+	    requestAnimationFrame: requestAnimationFrame,
+	    cancelAnimationFrame: cancelAnimationFrame
 	};
 
 	exports.default = utils;
