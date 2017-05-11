@@ -16,7 +16,7 @@
  * 2、提供下拉刷新和上拉加载更多功能
  * */
 
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import utils from './utils';
@@ -284,7 +284,9 @@ export default class Scroller extends Component {
         if (prevState.usePullRefresh !== this.state.usePullRefresh) {
             this.setRefreshStatus(REFRESHSTATUS.PULL);
         }
-        if (prevState.useLoadMore !== this.state.useLoadMore) {
+        if (prevState.useLoadMore !== this.state.useLoadMore ||
+            prevState.noMoreData !== this.props.noMoreData
+        ) {
             this.setLoadMoreStatus(this.loadMoreStatus || LOADMORESTATUS.PULL);
             this.refreshLoadMore();
         }
@@ -450,9 +452,9 @@ export default class Scroller extends Component {
                     const distToNext = nextHeader.offsetTop - wrapperTop - absY;
                     const adjustOffset = distToNext > currentHeader.height ?
                         0 : -(currentHeader.height - distToNext);
-                    ret = { currentHeader, adjustOffset, index };
+                    ret = {currentHeader, adjustOffset, index};
                 } else {
-                    ret = { currentHeader, adjustOffset: 0, index };
+                    ret = {currentHeader, adjustOffset: 0, index};
                 }
             } else {
                 ret = null;
@@ -480,7 +482,7 @@ export default class Scroller extends Component {
             y = +matrix.top.replace(/[^-\d.]/g, '');
         }
 
-        return { x, y };
+        return {x, y};
     }
 
     /**
@@ -492,7 +494,7 @@ export default class Scroller extends Component {
             const stickyNode = this.stickyNode;
 
             if (currentSticky) {
-                const { currentHeader, adjustOffset } = currentSticky;
+                const {currentHeader, adjustOffset} = currentSticky;
 
                 if (currentSticky.index !== this.stickyIndex ||
                     currentSticky.adjustOffset !== this.stickyOffset ||
@@ -523,9 +525,7 @@ export default class Scroller extends Component {
     touchStart(e) {
         if (this.disabled || (this.initiated && utils.eventType[e.type] !== this.initiated)) return;
 
-        if (this.preventDefault &&
-            !utils.isBadAndroid &&
-            !utils.preventDefaultException(e.target, this.props.preventDefaultException)
+        if (this.preventDefault && !utils.isBadAndroid && !utils.preventDefaultException(e.target, this.props.preventDefaultException)
         ) {
             e.preventDefault();
         }
@@ -693,9 +693,10 @@ export default class Scroller extends Component {
     touchEnd(e) {
         if (this.disabled || utils.eventType[e.type] !== this.initiated) return;
 
-        if (this.preventDefault &&
-            !utils.preventDefaultException(e.target, this.props.preventDefaultException)
-        ) { e.preventDefault(); }
+        if (this.preventDefault && !utils.preventDefaultException(e.target, this.props.preventDefaultException)
+        ) {
+            e.preventDefault();
+        }
 
         let momentumX;
         let momentumY;
@@ -729,8 +730,7 @@ export default class Scroller extends Component {
         // 设置加载更多
         if (this.state.useLoadMore && this.y < this.maxScrollY) {
             if (this.loadMoreStatus !== LOADMORESTATUS.NOMORE &&
-                this.loadMoreStatus !== LOADMORESTATUS.LOAD &&
-                !this.props.noMoreData
+                this.loadMoreStatus !== LOADMORESTATUS.LOAD && !this.props.noMoreData
             ) {
                 this.setLoadMoreStatus(LOADMORESTATUS.LOAD);
                 this.loadData('load');
@@ -748,12 +748,12 @@ export default class Scroller extends Component {
                 utils.momentum(this.x, this.startX, duration, this.maxScrollX,
                     this.props.bounce ? this.wrapperWidth : 0,
                     this.props.deceleration) :
-            { destination: newX, duration: 0 };
+            {destination: newX, duration: 0};
             momentumY = this.hasVerticalScroll ?
                 utils.momentum(this.y, this.startY, duration, this.maxScrollY,
                     this.props.bounce ? this.wrapperHeight : 0,
                     this.props.deceleration) :
-            { destination: newY, duration: 0 };
+            {destination: newY, duration: 0};
 
             newX = momentumX.destination;
             newY = momentumY.destination;
@@ -866,7 +866,9 @@ export default class Scroller extends Component {
 
         if (this.pullRefreshStatus === REFRESHSTATUS.LOAD &&
             this.y === this.pullRefreshOffsetHeight
-        ) { return false; }
+        ) {
+            return false;
+        }
 
         if (!this.hasHorizontalScroll || this.x > 0) {
             x = 0;
@@ -1004,8 +1006,7 @@ export default class Scroller extends Component {
                     // 设置加载更多
                     if (this.state.useLoadMore && this.y < this.maxScrollY) {
                         if (this.loadMoreStatus !== LOADMORESTATUS.NOMORE &&
-                            this.loadMoreStatus !== LOADMORESTATUS.LOAD &&
-                            !this.props.noMoreData
+                            this.loadMoreStatus !== LOADMORESTATUS.LOAD && !this.props.noMoreData
                         ) {
                             this.setLoadMoreStatus(LOADMORESTATUS.LOAD);
                             this.loadData('load');
@@ -1268,7 +1269,9 @@ export default class Scroller extends Component {
         utils.ease[this.props.bounceEasing] || utils.ease.circular :
             this.props.bounceEasing;
 
-        if (this.props.onScroll) { this.useTransition = false; }
+        if (this.props.onScroll) {
+            this.useTransition = false;
+        }
 
         // 重置 下拉刷新 和 加载更多
         const isUsePullRefresh = this.scrollY && !this.scrollX && this.props.usePullRefresh;
@@ -1384,8 +1387,8 @@ export default class Scroller extends Component {
                                 className="silk-listcontrol-loadwrapper silk-listcontrol-loadwrapper-up"
                             >
                                 <div className="silk-listcontrol-loadtip">
-                                    <i className="silk-listcontrol-icon" />
-                                    <div className="silk-listcontrol-text" />
+                                    <i className="silk-listcontrol-icon"/>
+                                    <div className="silk-listcontrol-text"/>
                                 </div>
                             </div>) : null
                     }
@@ -1397,8 +1400,8 @@ export default class Scroller extends Component {
                                 className="silk-listcontrol-loadwrapper"
                             >
                                 <div className="silk-listcontrol-loadtip">
-                                    <i className="silk-listcontrol-icon" />
-                                    <div className="silk-listcontrol-text" />
+                                    <i className="silk-listcontrol-icon"/>
+                                    <div className="silk-listcontrol-text"/>
                                 </div>
                             </div>) : null
                     }
