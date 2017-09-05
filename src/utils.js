@@ -172,6 +172,34 @@ function preventDefaultException(el, exceptions) {
     return false;
 }
 
+function click(e) {
+    var target = e.target,
+        ev;
+
+    if (!(/(SELECT|INPUT|TEXTAREA)/i).test(target.tagName)) {
+        // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/initMouseEvent
+        // initMouseEvent is deprecated.
+        ev = document.createEvent(window.MouseEvent ? 'MouseEvents' : 'Event');
+        ev.initEvent('click', true, true,
+            e.view || window,
+            1,
+            target.screenX || 0,
+            target.screenY || 0,
+            target.clientX || 0,
+            target.clientY || 0,
+            !!e.ctrlKey,
+            !!e.altKey,
+            !!e.shiftKey,
+            !!e.metaKey,
+            0,
+            null
+        );
+        ev._constructed = true;
+        target.dispatchEvent(ev);
+    }
+};
+
+
 const style = {
     transform,
     transitionTimingFunction: prefixStyle('transitionTimingFunction'),
@@ -252,7 +280,8 @@ const utils = {
     eventType,
     ease,
     requestAnimationFrame,
-    cancelAnimationFrame
+    cancelAnimationFrame,
+    click
 }
 
 export default utils;

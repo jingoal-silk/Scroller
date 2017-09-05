@@ -190,7 +190,8 @@ export default class Scroller extends Component {
         /**
          * 是否还有更多数据
          * */
-        noMoreData: PropTypes.bool
+        noMoreData: PropTypes.bool,
+        click: PropTypes.bool
     };
     /*eslint-enable*/
 
@@ -220,6 +221,7 @@ export default class Scroller extends Component {
         usePullRefresh: false,
         useLoadMore: false,
         useSticky: false,
+        click: false,
         lang: 'zh_CN'
     };
 
@@ -711,6 +713,10 @@ export default class Scroller extends Component {
         this.endTime = utils.getTime();
 
         if (!this.moved) {
+            if ( this.props.click ) {
+                utils.click(e);
+            }
+
             this.execEvent('onScrollCancel');
             return;
         }
@@ -796,6 +802,10 @@ export default class Scroller extends Component {
      * */
     initEvent(flag) {
         const eventType = flag ? utils.removeEvent : utils.addEvent;
+
+        if ( this.props.click ) {
+            eventType(this.wrapper, 'click', this, true);
+        }
 
         if (utils.hasTouch) {
             eventType(this.wrapper, 'touchstart', this);

@@ -21,7 +21,6 @@ gulp.task('babel', ['clean'], () =>
             presets: ['react', 'es2015', 'stage-0'],
             plugins: ['transform-runtime', 'transform-decorators-legacy']
         }))
-        .pipe(replace(/.scss/g, '.css'))
         .pipe(gulp.dest('./lib'))
 )
 

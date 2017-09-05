@@ -2,11 +2,11 @@
 
 React版iScroll并且集成下拉刷新，上拉加载更多，Sticky等功能 Edit
 
-*正式版,已在大型商业项目中使用,有问题提issue,永久更新.*
-
 [demo](https://jingoal-silk.github.io/Scroller/dist/index.html)
 
 [sticky](https://jingoal-silk.github.io/Scroller/dist/Sticky.html)
+
+1.0.7 更新click参数,解决不能点击的问题
 
 > 滚动原理:
 该组件是通过提供一个容器（container）和一个滑块 (scroller) 实现的。容器必须有一个确定的高度才能正常工作，滑块通过两种方案实现滚动
@@ -272,6 +272,8 @@ ReactDOM.render(
 | scrollerStyle  | 为滑块指定样式 | Object | | |
 | noMoreData | 是否有更多数据 | Boolean | true, false | |
 | autoLoad   | 是否开启滑动到底部自动加载更多 | Boolean | true, false | true |
+| click   | 是否开启点击事件 | Boolean | true, false | false |
+
 
 > 方法
 

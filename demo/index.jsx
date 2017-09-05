@@ -92,6 +92,7 @@ class Example extends React.Component {
                 pullRefreshAction={this.pullRefreshAction}
                 useLoadMore
                 loadMoreAction={this.loadMoreAction}
+                click={true}
             >
                 <ul>{this.getContent()}</ul>
             </Scroller>
