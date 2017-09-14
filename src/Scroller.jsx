@@ -1136,7 +1136,7 @@ export default class Scroller extends Component {
 
         // 如果有加载更多，设置加载更多的位置，重置加载更多滑块的位置
         if (this.state.useLoadMore && this.loadMoreEl) {
-            this.loadMoreEl.style.visibility = this.scrollerHeight > this.wrapperWidth ? 'visible' : 'hidden';
+            this.loadMoreEl.style.visibility = this.scrollerHeight > this.wrapperHeight ? 'visible' : 'hidden';
             this.loadMoreEl.style.top = `${this.scrollerHeight}px`;
             this.scrollerHeight += this.loadMoreOffsetHeight;
         }

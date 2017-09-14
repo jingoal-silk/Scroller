@@ -1,6 +1,6 @@
 {
     "name": "silk-scroller",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "main": "lib/index.js",
     "repository": {
         "type": "git",
@@ -84,6 +84,6 @@
         "react-dom": "^15.4.2"
     },
     "engines": {
-        "node": ">=6.9.0"
+        "node": ">=4.0.0"
     }
 }
