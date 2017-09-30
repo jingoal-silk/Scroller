@@ -21,17 +21,18 @@ gulp.task('babel', ['clean'], () =>
             presets: ['react', 'es2015', 'stage-0'],
             plugins: ['transform-runtime', 'transform-decorators-legacy']
         }))
+        .pipe(replace(/.scss/g, '.css'))
         .pipe(gulp.dest('./lib'))
 )
 
-gulp.task('sass', () => {
+gulp.task('sass',['clean'], () => {
     return gulp.src('./src/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./lib'))
 });
 
 
-gulp.task('move', ['clean', 'sass'], () =>
+gulp.task('move', ['clean'], () =>
     gulp.src([
             './src/**/*.css',
             './src/**/*.png',
@@ -43,4 +44,4 @@ gulp.task('move', ['clean', 'sass'], () =>
         .pipe(gulp.dest('./lib'))
 )
 
-gulp.task('default', ['babel', 'move'])
+gulp.task('default', ['sass','babel', 'move'])
